@@ -39,29 +39,25 @@ This project was built with a holistic product mindset, demonstrating an expansi
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/yourusername/techstore.git](https://github.com/yourusername/techstore.git)
-
-```
+   git clone [https://github.com/Jay-137/ReactJS_Ecommerce.git](https://github.com/Jay-137/ReactJS_Ecommerce.git)
+   ```
 
 2. Navigate to the directory:
-```bash
-cd techstore
-
-```
+   ```bash
+   cd techstore
+   ```
 
 
 3. Install dependencies:
-```bash
-npm install
-
-```
+   ```bash
+   npm install
+   ```
 
 
 4. Start the development server:
-```bash
-npm run dev
-
-```
+   ```bash
+   npm run dev
+   ```
 
 
 
