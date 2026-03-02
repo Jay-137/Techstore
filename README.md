@@ -39,7 +39,7 @@ This project was built with a holistic product mindset, demonstrating an expansi
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/Jay-137/ReactJS_Ecommerce.git](https://github.com/Jay-137/ReactJS_Ecommerce.git)
+   git clone https://github.com/Jay-137/ReactJS_Ecommerce.git
    ```
 
 2. Navigate to the directory:
