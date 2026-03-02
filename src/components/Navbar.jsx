@@ -20,14 +20,21 @@ const Navbar = () => {
     };
 
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow-md p-4 flex justify-between items-center transition-colors duration-300">
+    // 1. Added flex-wrap so the nav can break into two lines if needed on very small phones
+    <nav className="bg-white dark:bg-gray-800 shadow-md p-4 flex flex-wrap justify-between items-center gap-4 transition-colors duration-300">
+      
       <Link to="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">
         TechStore
       </Link>
       
-      <div className="flex items-center gap-6 font-semibold text-gray-700 dark:text-gray-200">
+      {/* 2. Scaled down gaps (gap-3 to sm:gap-6) and text size (text-sm to sm:text-base) for mobile */}
+      {/* Added w-full sm:w-auto so on tiny screens, these links drop to their own row and space out evenly */}
+      <div className="flex items-center gap-3 sm:gap-6 font-semibold text-sm sm:text-base text-gray-700 dark:text-gray-200 w-full sm:w-auto justify-between sm:justify-end">
+        
         <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400">Home</Link>
-        <button onClick={handleCartClick} className="hover:text-blue-600 dark:hover:text-blue-400">Cart ({cartQuantity})</button>
+        <button onClick={handleCartClick} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          Cart ({cartQuantity})
+        </button>
         <div className="flex items-center gap-4 border-r pr-4 border-gray-300 dark:border-gray-600">
           {isAuthenticated ? (
             <div className="flex items-center gap-3">

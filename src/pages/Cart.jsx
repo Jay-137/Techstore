@@ -51,17 +51,24 @@ const Cart=()=>{
         ))}
 
       </div>
-      <div className="mt-8 bg-white dark:bg-gray-800 p-6 rounded-lg shadow flex justify-between items-center">
+      <div className="mt-8 bg-white dark:bg-gray-800 p-6 rounded-lg shadow flex flex-col sm:flex-row justify-between items-center gap-6 text-center sm:text-left">
+        
         <div>
           <p className="text-gray-600 dark:text-gray-400">Total Items: {totalQuantity}</p>
           <p className="text-2xl font-bold text-gray-800 dark:text-white">Total: ${totalPrice.toFixed(2)}</p>
         </div>
-        <button onClick={handleCheckout} disabled={isProcessing} className={`px-8 py-3 rounded-lg font-bold text-white transition-colors flex items-center justify-center min-w-50
+        
+        {/* 2. Added w-full sm:w-auto to make the button full-width on phones for an easier tap target */}
+        <button 
+          onClick={handleCheckout} 
+          disabled={isProcessing} 
+          className={`w-full sm:w-auto px-8 py-3 rounded-lg font-bold text-white transition-colors flex items-center justify-center
             ${isProcessing 
-              ? 'bg-gray-400 cursor-not-allowed' // Disabled styling
-              : 'bg-green-600 hover:bg-green-700' // Active styling
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-green-600 hover:bg-green-700'
             }
-          `}>
+          `}
+        >
           {isProcessing ? (
              // A simple CSS spinner + text
             <span className="flex items-center gap-2">
