@@ -1,13 +1,21 @@
 import {configureStore} from "@reduxjs/toolkit";
 import cartReducer from "./cartSlice";
 import ProductReducer from "./productSlice";
+import AuthReducer from "./authSlice";
 const store=configureStore({
   reducer:{
     cart:cartReducer,
     products:ProductReducer,
+    auth:AuthReducer,
   }
 });
 export default store;
+
+store.subscribe(()=>{
+  const state=store.getState();
+  localStorage.setItem("cartState",JSON.stringify(state.cart));
+  localStorage.setItem("authState",JSON.stringify(state.auth));
+});
 
 
 

@@ -3,7 +3,8 @@ import RootLayout from "./components/RootLayout";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import { ThemeProvider } from "./context/ThemeContext";
-
+import ProtectedRoute from "./components/ProtectedRoute";
+import OrderSuccess from "./pages/OrderSuccess";
 const router=createBrowserRouter([
   {
     path:"/",
@@ -14,8 +15,14 @@ const router=createBrowserRouter([
         element:<Home/>
       },
       {
-        path:"cart",
-        element:<Cart/>
+        element:<ProtectedRoute/>,
+        children:[
+          {
+            path:"cart",
+            element:<Cart/>
+          },
+          { path: "/order-success", element: <OrderSuccess /> }
+        ]
       }
     ]
   }

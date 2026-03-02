@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { fetchProducts } from "../store/productSlice";
 import { useDispatch,useSelector } from "react-redux";
 import { addToCart } from "../store/cartSlice";
+import {toast} from "react-hot-toast";
 const Home=()=>{
   const dispatch=useDispatch();
   const {data,status,error}=useSelector(state=>state.products);
+  const {isAuthenticated}=useSelector(state=>state.auth);
   useEffect(()=>{
     if(status==="Idle")
       dispatch(fetchProducts());
@@ -54,7 +56,14 @@ const Home=()=>{
               
               {/* Add to Cart Button (We will wire this up next!) */}
               <button className="cursor-pointer mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition-colors"
-              onClick={()=>dispatch(addToCart(product))}>
+              onClick={()=>{
+                if(!isAuthenticated)
+                  toast.error("You must be logged in to add items to cart!");
+                else{
+                  toast.success("Added item to cart!")
+                dispatch(addToCart(product))
+                }
+              }}>
                 Add to Cart
               </button>
             </div>

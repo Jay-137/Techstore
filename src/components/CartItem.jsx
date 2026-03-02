@@ -21,7 +21,7 @@ const CartItem=({item,onRemove})=>{
                 onClick={()=>{
                   onRemove(item.id);
                 }}
-                className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition-colors"
+                className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition-colors cursor-pointer"
               >
                 Remove 1
               </button>

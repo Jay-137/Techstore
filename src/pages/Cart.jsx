@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { removeFromCart } from "../store/cartSlice";
 import CartItem from "../components/CartItem";
 import { useCallback,useMemo } from "react";
+import { clearCart } from "../store/cartSlice";
+import {toast} from "react-hot-toast";
 
 const Cart=()=>{
   // console.log("loading cart");
@@ -13,6 +15,12 @@ const Cart=()=>{
   const onRemove=useCallback((id)=>{
     dispatch(removeFromCart(id));
   },[dispatch]);
+
+  const handleCheckout = useCallback( () => {
+    dispatch(clearCart());
+    toast.success("Order processed!");
+    navigate('/order-success');
+  },[dispatch,navigate]);
 
   const totalPrice=useMemo(()=>{return items.reduce((sum,cur)=>sum+(cur.price*cur.quantity),0)},[items]);
   if(items.length===0){
@@ -43,7 +51,7 @@ const Cart=()=>{
           <p className="text-gray-600 dark:text-gray-400">Total Items: {totalQuantity}</p>
           <p className="text-2xl font-bold text-gray-800 dark:text-white">Total: ${totalPrice.toFixed(2)}</p>
         </div>
-        <button className="bg-green-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors">
+        <button onClick={handleCheckout} className="bg-green-600 cursor-pointer text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors">
           Proceed to Checkout
         </button>
       </div>

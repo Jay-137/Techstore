@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { logout } from "./authSlice";
 const cartSlice=createSlice({
   name:'cart',
-  initialState:{
+  //hydrating initial cart state from localstorage
+  initialState:JSON.parse(localStorage.getItem("cartState"))|| {
     items:[],
     totalQuantity:0
   },
@@ -28,10 +29,20 @@ const cartSlice=createSlice({
         else
           existing.quantity--;
       }
+    },
+    clearCart(state,action){
+      state.items=[];
+      state.totalQuantity=0;
     }
+  },
+  extraReducers:(builder)=>{
+    builder.addCase(logout,(state)=>{
+      state.items=[];
+      state.totalQuantity=0;
+    });
   }
 
 });
 
-export const {addToCart,removeFromCart}=cartSlice.actions;
+export const {addToCart,removeFromCart,clearCart}=cartSlice.actions;
 export default cartSlice.reducer;
