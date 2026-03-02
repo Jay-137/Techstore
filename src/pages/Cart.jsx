@@ -2,13 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeFromCart } from "../store/cartSlice";
 import CartItem from "../components/CartItem";
-import { useCallback,useMemo } from "react";
+import { useCallback,useMemo, useState } from "react";
 import { clearCart } from "../store/cartSlice";
 import {toast} from "react-hot-toast";
 
 const Cart=()=>{
   // console.log("loading cart");
   const {items,totalQuantity}=useSelector(state=>state.cart);
+  const [isProcessing,setIsProcessing]=useState(false);
   const dispatch=useDispatch();
   const navigate=useNavigate();
 
@@ -17,9 +18,13 @@ const Cart=()=>{
   },[dispatch]);
 
   const handleCheckout = useCallback( () => {
+    setIsProcessing(true);
+    setTimeout(()=>{
     dispatch(clearCart());
     toast.success("Order processed!");
     navigate('/order-success');
+    },3000);
+    //dont ve to setprocessing to false cause componet already unmounts
   },[dispatch,navigate]);
 
   const totalPrice=useMemo(()=>{return items.reduce((sum,cur)=>sum+(cur.price*cur.quantity),0)},[items]);
@@ -51,8 +56,24 @@ const Cart=()=>{
           <p className="text-gray-600 dark:text-gray-400">Total Items: {totalQuantity}</p>
           <p className="text-2xl font-bold text-gray-800 dark:text-white">Total: ${totalPrice.toFixed(2)}</p>
         </div>
-        <button onClick={handleCheckout} className="bg-green-600 cursor-pointer text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors">
-          Proceed to Checkout
+        <button onClick={handleCheckout} disabled={isProcessing} className={`px-8 py-3 rounded-lg font-bold text-white transition-colors flex items-center justify-center min-w-50
+            ${isProcessing 
+              ? 'bg-gray-400 cursor-not-allowed' // Disabled styling
+              : 'bg-green-600 hover:bg-green-700' // Active styling
+            }
+          `}>
+          {isProcessing ? (
+             // A simple CSS spinner + text
+            <span className="flex items-center gap-2">
+              <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Processing...
+            </span>
+          ) : (
+            'Proceed to Checkout'
+          )}
         </button>
       </div>
     </div>
