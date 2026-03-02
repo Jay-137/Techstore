@@ -5,6 +5,7 @@ import Cart from "./pages/Cart";
 import { ThemeProvider } from "./context/ThemeContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OrderSuccess from "./pages/OrderSuccess";
+import NotFound from "./pages/NotFound";
 const router=createBrowserRouter([
   {
     path:"/",
@@ -25,6 +26,10 @@ const router=createBrowserRouter([
         ]
       }
     ]
+  },
+  {
+    path:"*",
+    element:<NotFound/>
   }
 ])
 function App() {

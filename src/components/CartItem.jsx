@@ -5,9 +5,9 @@ const CartItem=({item,onRemove})=>{
   return (
     <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
             
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 flex-1 min-w-0">
               <img src={item.image} alt={item.title} className="w-16 h-16 object-contain bg-white rounded" />
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-semibold text-gray-800 dark:text-gray-100 line-clamp-1">{item.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400">${item.price.toFixed(2)} x {item.quantity}</p>
               </div>
